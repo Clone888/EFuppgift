@@ -10,6 +10,7 @@ db.Database.EnsureCreated();
 db.SaveChanges();
 
 Console.WriteLine($"SQLite DB located at: {db.DbPath}");
+Console.WriteLine();
 Console.WriteLine("RUNING PROGRAM");
 
 string[] userCsv = File.ReadAllLines("datauser.csv");
@@ -23,7 +24,7 @@ foreach (string line in userCsv)
 {
     string[] split = line.Split(",");
    
-    var userExists = db.Users.Find(int.Parse(split[0]));
+    User? userExists = db.Users.Find(int.Parse(split[0]));
 
     if (userExists == null)
     {
@@ -32,8 +33,7 @@ foreach (string line in userCsv)
     }
     else
     {
-        Console.WriteLine("FINNS");
-        continue;
+            continue;
     }
 }
 
@@ -43,20 +43,15 @@ foreach (string line in blogCsv)
     string[] split = line.Split(",");
 
 
-    var blogExists = db.Blogs.Find(int.Parse(split[0]));
+    Blog? blogExists = db.Blogs.Find(int.Parse(split[0]));
 
     if (blogExists == null)
     {
         db.Add(new Blog { BlogId = int.Parse(split[0]), Name = split[2], Url = split[1], });
-        Console.WriteLine($"ID: {split[0]}");
-        Console.WriteLine($"NAMN:   {split[1]}");
-        Console.WriteLine($"URL:    {split[2]}");
-        Console.WriteLine("_______________________");
         db.SaveChanges();
     }
     else
     {
-        Console.WriteLine("FINNS");
         continue;
     }
 }
@@ -107,7 +102,7 @@ Console.WriteLine();
 foreach (User userLine in db.Users.OrderBy(orderby => orderby.Username))
 {
 
-    Console.WriteLine($"User: \t\t{userLine.Username}");
+    Console.WriteLine($"\t\tUSER: {userLine.Username}");
     Console.WriteLine();
 
 
