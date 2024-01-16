@@ -77,16 +77,22 @@ Console.WriteLine("\t\t\tRESULT");
 Console.WriteLine();
 foreach (User u in db.Users)
 {
-    Console.WriteLine($"Username: {u.Username}");
-    Console.WriteLine($"Password: {u.Password}");
-    Console.WriteLine();
 
-    foreach (Post p in u.Posts)
+    Console.WriteLine($"User: {u.Username}");
+
+    foreach (Blog b in u.Posts)
     {
-        Console.WriteLine($"Title: {p.Title}");
-        Console.WriteLine($"Content: {p.Content}");
-        Console.WriteLine($"Content: {p.Blog}");
+        Console.WriteLine($"Blog: {b.Name}");
+        Console.WriteLine($"URL: {b.Url}");
         Console.WriteLine();
+
+        foreach (Post p in b.Posts)
+        {
+            Console.WriteLine($"Title: {p.Title}");
+            Console.WriteLine($"Content: {p.Content}");
+            Console.WriteLine($"Date: {p.PublishedOn}");
+            Console.WriteLine();
+        }
     }
 }
 

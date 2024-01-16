@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFuppgift.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20240116084622_InitaialCreate")]
-    partial class InitaialCreate
+    [Migration("20240116101738_addedInPost")]
+    partial class addedInPost
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace EFuppgift.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("PostId");
 
                     b.HasIndex("BlogId");
@@ -87,13 +90,13 @@ namespace EFuppgift.Migrations
             modelBuilder.Entity("EFuppgift.Post", b =>
                 {
                     b.HasOne("EFuppgift.Blog", "Blog")
-                        .WithMany("Post")
+                        .WithMany("Posts")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EFuppgift.User", "User")
-                        .WithMany("Post")
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -105,12 +108,12 @@ namespace EFuppgift.Migrations
 
             modelBuilder.Entity("EFuppgift.Blog", b =>
                 {
-                    b.Navigation("Post");
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("EFuppgift.User", b =>
                 {
-                    b.Navigation("Post");
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
