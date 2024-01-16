@@ -75,25 +75,27 @@ db.SaveChanges();
 
 Console.WriteLine("\t\t\tRESULT");
 Console.WriteLine();
-foreach (User u in db.Users)
+foreach (User lineUser in db.Users)
 {
 
-    Console.WriteLine($"User: {u.Username}");
+    Console.WriteLine($"User: {lineUser.Username}");
+    Console.WriteLine();
 
-    foreach (Blog b in u.Posts)
+
+    foreach (Post linePost in lineUser.Posts)
     {
-        Console.WriteLine($"Blog: {b.Name}");
-        Console.WriteLine($"URL: {b.Url}");
+        Console.WriteLine($"Title: {linePost.Title}");
+        Console.WriteLine($"Content: {linePost.Content}");
+        Console.WriteLine($"Date: {linePost.PublishedOn}");
         Console.WriteLine();
 
-        foreach (Post p in b.Posts)
+        foreach (Blog lineBlog in linePost.Blog)
         {
-            Console.WriteLine($"Title: {p.Title}");
-            Console.WriteLine($"Content: {p.Content}");
-            Console.WriteLine($"Date: {p.PublishedOn}");
-            Console.WriteLine();
+            Console.WriteLine($"Blog{lineBlog.Name}");
+            Console.WriteLine($"URL{lineBlog.Url}");
         }
     }
+}
 }
 
 
