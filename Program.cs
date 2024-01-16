@@ -9,7 +9,7 @@ db.Database.EnsureCreated();
 db.SaveChanges();
 
 Console.WriteLine($"SQLite DB located at: {db.DbPath}");
-Console.WriteLine("RUN!!!!!!!");
+Console.WriteLine("RUNING PROGRAM");
 
 string[] user = File.ReadAllLines("datauser.csv");
 string[] post = File.ReadAllLines("datapost.csv");
@@ -26,18 +26,6 @@ foreach (string line in user)
 db.SaveChanges();
 
 
-Console.WriteLine("\t\t\tUSERS");
-foreach (User u in db.Users)
-{
-    Console.WriteLine($"Username: {u.Username}");
-    Console.WriteLine($"Password: {u.Password}");
-    Console.WriteLine();
-}
-
-
-Console.WriteLine($"---------------------NEXT BLOG---------------------------");
-
-
 foreach (string line in blog)
 {
     string[] split = line.Split(",");
@@ -46,21 +34,10 @@ foreach (string line in blog)
 }
 db.SaveChanges();
 
-Console.WriteLine("\t\t\tBLOGS");
-foreach (Blog b in db.Blogs)
-{
-    Console.WriteLine($"Name: {b.Name} ");
-    Console.WriteLine($"URL: {b.Url} ");
-    Console.WriteLine();
-}
-
-Console.WriteLine($"---------------------NEXT POST---------------------------");
-
-
 foreach (string line in post)
 {
     string[] split = line.Split(",");
-   
+
 
 
     if (DateOnly.TryParse(split[3], out DateOnly date))
@@ -74,7 +51,7 @@ foreach (string line in post)
 
     if (int.TryParse(split[4], out int blogid))
     {
-       // db.Add(new Post { BlogId = blogid });
+        // db.Add(new Post { BlogId = blogid });
     }
     else
     {
@@ -90,11 +67,58 @@ foreach (string line in post)
         Console.WriteLine("Wrong with parse user id");
     }
 
-    db.Add(new Post { PostId = int.Parse(split[0]), Title = split[1],  Content = split[2], PublishedOn = date, BlogId = blogid, UserId = userid });
+    db.Add(new Post { PostId = int.Parse(split[0]), Title = split[1], Content = split[2], PublishedOn = date, BlogId = blogid, UserId = userid });
     //db.Add(new Post { Content = split[3] });
 
 }
 db.SaveChanges();
+
+Console.WriteLine("\t\t\tRESULT");
+Console.WriteLine();
+foreach (User u in db.Users)
+{
+    Console.WriteLine($"Username: {u.Username}");
+    Console.WriteLine($"Password: {u.Password}");
+    Console.WriteLine();
+
+    foreach (Post p in u.Posts)
+    {
+        Console.WriteLine($"Title: {p.Title}");
+        Console.WriteLine($"Content: {p.Content}");
+        Console.WriteLine($"Content: {p.Blog}");
+        Console.WriteLine();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Console.WriteLine($"---------------------NEXT BLOG---------------------------");
+
+
+
+Console.WriteLine("\t\t\tBLOGS");
+foreach (Blog b in db.Blogs)
+{
+    Console.WriteLine($"Name: {b.Name} ");
+    Console.WriteLine($"URL: {b.Url} ");
+    Console.WriteLine();
+}
+
+Console.WriteLine($"---------------------NEXT POST---------------------------");
+
+
 
 
 
@@ -111,7 +135,7 @@ foreach (Post p in db.Posts.OrderBy(o => o.PublishedOn))
 
 
 
-
+*/
 
 
 /*
@@ -161,7 +185,6 @@ Console.WriteLine($"Blog url after update: {blog.Url}");
 //Update
 blog.Posts.Add(new Post 
 {
-
     Title = "First Post in the First Blog",
     Content = "No content to be found here"
 });

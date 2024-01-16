@@ -84,13 +84,13 @@ namespace EFuppgift.Migrations
             modelBuilder.Entity("EFuppgift.Post", b =>
                 {
                     b.HasOne("EFuppgift.Blog", "Blog")
-                        .WithMany()
+                        .WithMany("Post")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EFuppgift.User", "User")
-                        .WithMany()
+                        .WithMany("Post")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -98,6 +98,16 @@ namespace EFuppgift.Migrations
                     b.Navigation("Blog");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EFuppgift.Blog", b =>
+                {
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("EFuppgift.User", b =>
+                {
+                    b.Navigation("Post");
                 });
 #pragma warning restore 612, 618
         }
