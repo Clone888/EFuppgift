@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFuppgift.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20240115093809_InitaialCreate")]
-    partial class InitaialCreate
+    [Migration("20240116141228_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,13 +87,13 @@ namespace EFuppgift.Migrations
             modelBuilder.Entity("EFuppgift.Post", b =>
                 {
                     b.HasOne("EFuppgift.Blog", "Blog")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EFuppgift.User", "User")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -101,6 +101,16 @@ namespace EFuppgift.Migrations
                     b.Navigation("Blog");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EFuppgift.Blog", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("EFuppgift.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
