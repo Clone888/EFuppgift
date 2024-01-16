@@ -24,7 +24,7 @@ foreach (string line in userCsv)
 {
     string[] split = line.Split(",");
    
-    var userExists = db.Users.Find(int.Parse(split[0]));
+    User? userExists = db.Users.Find(int.Parse(split[0]));
 
     if (userExists == null)
     {
@@ -43,7 +43,7 @@ foreach (string line in blogCsv)
     string[] split = line.Split(",");
 
 
-    var blogExists = db.Blogs.Find(int.Parse(split[0]));
+    Blog? blogExists = db.Blogs.Find(int.Parse(split[0]));
 
     if (blogExists == null)
     {
