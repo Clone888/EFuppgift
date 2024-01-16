@@ -48,10 +48,7 @@ foreach (string line in blogCsv)
     if (blogExists == null)
     {
         db.Add(new Blog { BlogId = int.Parse(split[0]), Name = split[2], Url = split[1], });
-        Console.WriteLine($"ID: {split[0]}");
-        Console.WriteLine($"NAMN:   {split[1]}");
-        Console.WriteLine($"URL:    {split[2]}");
-        Console.WriteLine("_______________________");
+
         db.SaveChanges();
     }
     else
