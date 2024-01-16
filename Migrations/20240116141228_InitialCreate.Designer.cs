@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFuppgift.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20240116101738_addedInPost")]
-    partial class addedInPost
+    [Migration("20240116141228_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,9 +57,6 @@ namespace EFuppgift.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("PostId");
 

@@ -55,9 +55,6 @@ namespace EFuppgift.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("PostId");
 
                     b.HasIndex("BlogId");
