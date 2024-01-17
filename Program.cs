@@ -1,7 +1,6 @@
 ﻿using EFuppgift;
 using Microsoft.EntityFrameworkCore;
 
-
 using BloggingContext? db = new();
 
 db.Database.EnsureDeleted();
@@ -11,14 +10,10 @@ db.SaveChanges();
 
 Console.WriteLine($"SQLite DB located at: {db.DbPath}");
 Console.WriteLine();
-Console.WriteLine("RUNING PROGRAM");
 
 string[] userCsv = File.ReadAllLines("datauser.csv");
 string[] postCsv = File.ReadAllLines("datapost.csv");
 string[] blogCsv = File.ReadAllLines("datablog.csv");
-
-
-
 
 foreach (string line in userCsv)
 {
@@ -42,7 +37,6 @@ foreach (string line in blogCsv)
 {
     string[] split = line.Split(",");
 
-
     Blog? blogExists = db.Blogs.Find(int.Parse(split[0]));
 
     if (blogExists == null)
@@ -56,13 +50,9 @@ foreach (string line in blogCsv)
     }
 }
 
-
-
 foreach (string line in postCsv)
 {
     string[] split = line.Split(",");
-
-
 
     if (DateOnly.TryParse(split[3], out DateOnly date))
     {
@@ -92,8 +82,6 @@ foreach (string line in postCsv)
     }
 
     db.Add(new Post { PostId = int.Parse(split[0]), Title = split[1], Content = split[2], PublishedOn = date, BlogId = blogId, UserId = userId });
-    
-
 }
 db.SaveChanges();
 
